@@ -13,8 +13,15 @@ pygame.display.set_caption("Macbeth Dagger Scene")
 # pygame.display.set_icon(icon)
 
 PlayerRight1 = pygame.image.load('PlayerRight1.png')
+PlayerRight2 = pygame.image.load('PlayerRight2.png')
+PlayerRight3 = pygame.image.load('PlayerRight3.png')
+PlayerLeft1 = pygame.image.load('PlayerLeft1.png')
+PlayerLeft2 = pygame.image.load('PlayerLeft2.png')
+PlayerLeft3 = pygame.image.load('PlayerLeft3.png')
 
+prightanimationcycle = [PlayerRight1, PlayerRight2, PlayerRight1, PlayerRight3]
 
+pleftanimationcycle = [PlayerLeft1, PlayerLeft2, PlayerLeft1, PlayerLeft3]
 class Player:
 
     def __init__(self):
@@ -23,18 +30,39 @@ class Player:
         self.currentimg = PlayerRight1
         self.xoffset = self.currentimg.get_width()
         self.yoffset = self.currentimg.get_height()
+        self.animationframecounty = 0
+        self.curanimationlist = prightanimationcycle
+        self.animationstep = 0
 
     def update(self):
         self.xoffset = self.currentimg.get_width()
         self.yoffset = self.currentimg.get_height()
         if keys[pygame.K_d]:
             self.x += 0.5
-        if keys[pygame.K_a]:
+            self.curanimationlist = prightanimationcycle
+        elif keys[pygame.K_a]:
             self.x -= 0.5
-        if keys[pygame.K_w]:
+            self.curanimationlist = pleftanimationcycle
+
+        elif keys[pygame.K_w]:
             self.y -= 0.5
-        if keys[pygame.K_s]:
+        elif keys[pygame.K_s]:
             self.y += 0.5
+        else:
+            self.animationframecounty -= 1
+            self.animationstep = 0
+        self.animationframecounty += 1
+
+        if self.animationframecounty == 50:
+            self.animationframecounty = 0
+            if self.animationstep < 3:
+                self.animationstep += 1
+            else:
+                self.animationstep = 0
+            self.currentimg = self.curanimationlist[self.animationstep]
+
+
+
 
 
     def move(self):
