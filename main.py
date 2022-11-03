@@ -27,7 +27,15 @@ class Player:
     def update(self):
         self.xoffset = self.currentimg.get_width()
         self.yoffset = self.currentimg.get_height()
-        print(keys)
+        if keys[pygame.K_d]:
+            self.x += 0.5
+        if keys[pygame.K_a]:
+            self.x -= 0.5
+        if keys[pygame.K_w]:
+            self.y -= 0.5
+        if keys[pygame.K_s]:
+            self.y += 0.5
+
 
     def move(self):
         pass
