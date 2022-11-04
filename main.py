@@ -18,10 +18,22 @@ PlayerRight3 = pygame.image.load('PlayerRight3.png')
 PlayerLeft1 = pygame.image.load('PlayerLeft1.png')
 PlayerLeft2 = pygame.image.load('PlayerLeft2.png')
 PlayerLeft3 = pygame.image.load('PlayerLeft3.png')
+PlayerBack1 = pygame.image.load('PlayerBack1.png')
+PlayerBack2 = pygame.image.load('PlayerBack2.png')
+PlayerBack3 = pygame.image.load('PlayerBack3.png')
+PlayerFront1 = pygame.image.load('PlayerFront1.png')
+PlayerFront2 = pygame.image.load('PlayerFront2.png')
+PlayerFront3 = pygame.image.load('PlayerFront3.png')
 
 prightanimationcycle = [PlayerRight1, PlayerRight2, PlayerRight1, PlayerRight3]
 
 pleftanimationcycle = [PlayerLeft1, PlayerLeft2, PlayerLeft1, PlayerLeft3]
+
+pbackanimationcycle = [PlayerBack1, PlayerBack2, PlayerBack1, PlayerBack3]
+
+pfrontanimationcycle = [PlayerFront1, PlayerFront2, PlayerFront1, PlayerFront3]
+
+
 class Player:
 
     def __init__(self):
@@ -43,14 +55,14 @@ class Player:
         elif keys[pygame.K_a]:
             self.x -= 0.5
             self.curanimationlist = pleftanimationcycle
-
         elif keys[pygame.K_w]:
             self.y -= 0.5
+            self.curanimationlist = pbackanimationcycle
         elif keys[pygame.K_s]:
             self.y += 0.5
+            self.curanimationlist = pfrontanimationcycle
         else:
             self.animationframecounty -= 1
-            self.animationstep = 0
         self.animationframecounty += 1
 
         if self.animationframecounty == 50:
