@@ -49,6 +49,7 @@ pfrontanimationcycle = [PlayerFront1, PlayerFront2, PlayerFront1, PlayerFront3]
 
 screenblockervalue = False
 
+
 class Enemy:
     curimg = Guilt1
     animationstep = 0
@@ -66,7 +67,7 @@ class Enemy:
 
 class Setting:
 
-    def __init__(self, im1, im2, im3, im4, loc1, loc2, loc3, loc4, x1, y1, x2, y2, x3, y3):
+    def __init__(self, im1, im2, im3, im4, loc1, loc2, loc3, loc4, x1, y1, x2, y2, x3, y3, text, xstart, ystart):
         self.image1 = im1
         self.image2 = im2
         self.image3 = im3
@@ -80,6 +81,9 @@ class Setting:
         self.enemy3 = Enemy(x3, y3)
         self.enemylist = [self.enemy1, self.enemy2, self.enemy3]
         self.quotevalue = 0
+        self.text = text
+        self.xstart = xstart
+        self.ystart = ystart
 
     def load(self):
         global screenblockervalue
@@ -178,16 +182,18 @@ class Player:
                 self.switchscene(activesetting.loc4)
 
     def switchscene(self, loc):
-        if not loc == "N":
-            self.x = 600
-            self.y = 400
         global activesetting
         if loc == "ENTRY":
             activesetting = settings[settings.index(activesetting) - 1]
-
+            self.decidepostrans()
         elif loc == "EXIT":
             activesetting = settings[settings.index(activesetting) + 1]
             activesetting.quotevalue = 300
+            self.decidepostrans()
+
+    def decidepostrans(self):
+        self.x = activesetting.xstart
+        self.y = activesetting.ystart
 
     def loadhealth(self):
         if self.health == 0:
@@ -204,17 +210,20 @@ def screenblocker():
         screen.blit(Screenblockblack, (600, 0))
         screen.blit(Screenblockblack, (0, 400))
         screen.blit(Screenblockblack, (600, 400))
-    if activesetting.quotevalue == -10:
-        screen.blit(pygame.font.Font('freesansbold.ttf', 64).render('GAME OVER', True, (255, 255, 255)), (400, 350))
+        if activesetting.quotevalue == -10:
+            screen.blit(pygame.font.Font('freesansbold.ttf', 64).render('GAME OVER', True, (255, 255, 255)), (400, 350))
+        else:
+            screen.blit(pygame.font.Font('freesansbold.ttf', 48).render(activesetting.text, True, (255, 255, 255)),
+                        (400, 350))
 
 
 Player1 = Player()
-Setting1 = Setting(Background1Part1, Background1Part2, Background1Part3, Background1Part4, "EXIT", "N", "N", "N", 100,
-                   100, 200, 200, 400, 400)
+Setting1 = Setting(Background1Part1, Background1Part2, Background1Part3, Background1Part4, "EXIT", "N", "N", "N", 475,
+                   400, 575, 400, 675, 400, "UR GAY", 600, 400)
 Setting2 = Setting(Background2Part1, Background2Part2, Background2Part3, Background2Part4, "N", "EXIT", "ENTRY", "N",
-                   100, 100, 200, 200, 400, 400)
+                   257, 577, 831, 571, 783, 276, "SOME RANDOM ASS QUOTE", 600, 600)
 Setting3 = Setting(Background1Part1, Background1Part4, Background1Part1, Background1Part1, "N", "N", "N", "ENTRY", 100,
-                   100, 200, 200, 400, 400)
+                   100, 200, 200, 400, 400, "MACBETH IS ASS AMIRHGHT", 50, 325)
 
 activesetting = Setting1
 
@@ -228,6 +237,10 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            mouseposition = pygame.mouse.get_pos()
+            print(mouseposition[0])
+            print(mouseposition[1])
     # Keys pressed list
     keys = pygame.key.get_pressed()
     activesetting.load()
