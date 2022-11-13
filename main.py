@@ -38,6 +38,10 @@ Background2Part1 = pygame.image.load('BackgroundPngs/Background1Part4.png').conv
 Background2Part2 = pygame.image.load('BackgroundPngs/Background2Part2.png').convert()
 Background2Part3 = pygame.image.load('BackgroundPngs/Background2Part3.png').convert()
 Background2Part4 = pygame.image.load('BackgroundPngs/Background2Part4.png').convert()
+Background3Part1 = pygame.image.load('BackgroundPngs/Background3Part1.png').convert()
+Background3Part2 = pygame.image.load('BackgroundPngs/Background3Part2.png').convert()
+Background3Part3 = pygame.image.load('BackgroundPngs/Background3Part3.png').convert()
+Background3Part4 = pygame.image.load('BackgroundPngs/Background3Part4.png').convert()
 
 prightanimationcycle = [PlayerRight1, PlayerRight2, PlayerRight1, PlayerRight3]
 
@@ -213,17 +217,17 @@ def screenblocker():
         if activesetting.quotevalue == -10:
             screen.blit(pygame.font.Font('freesansbold.ttf', 64).render('GAME OVER', True, (255, 255, 255)), (400, 350))
         else:
-            screen.blit(pygame.font.Font('freesansbold.ttf', 48).render(activesetting.text, True, (255, 255, 255)),
+            screen.blit(pygame.font.Font('freesansbold.ttf', 48).render(settings[settings.index(activesetting) - 1].text, True, (255, 255, 255)),
                         (400, 350))
 
 
 Player1 = Player()
 Setting1 = Setting(Background1Part1, Background1Part2, Background1Part3, Background1Part4, "EXIT", "N", "N", "N", 475,
-                   400, 575, 400, 675, 400, "UR GAY", 600, 400)
+                   400, 575, 400, 675, 400, "QUOTE1", 600, 400)
 Setting2 = Setting(Background2Part1, Background2Part2, Background2Part3, Background2Part4, "N", "EXIT", "ENTRY", "N",
-                   257, 577, 831, 571, 783, 276, "SOME RANDOM ASS QUOTE", 600, 600)
-Setting3 = Setting(Background1Part1, Background1Part4, Background1Part1, Background1Part1, "N", "N", "N", "ENTRY", 100,
-                   100, 200, 200, 400, 400, "MACBETH IS ASS AMIRHGHT", 50, 325)
+                   257, 577, 831, 571, 783, 276, "QUOTE2", 600, 600)
+Setting3 = Setting(Background3Part1, Background3Part2, Background3Part3, Background3Part4, "N", "N", "N", "ENTRY", 567,
+                   441, 453, 541, 306, 655, "QUOTE3", 50, 325)
 
 activesetting = Setting1
 
